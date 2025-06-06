@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ESP32 Light Control</title>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e1e2f;
+      color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+
+    h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .toggle {
+      width: 60px;
+      height: 30px;
+      background: #555;
+      border-radius: 30px;
+      position: relative;
+      transition: background 0.3s ease;
+      margin-right: 10px;
+    }
+
+    .toggle::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+
+    input:checked + .toggle {
+      background: #4caf50;
+    }
+
+    input:checked + .toggle::before {
+      transform: translateX(30px);
+    }
+
+    #status {
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>💡 ESP32 Light Control</h2>
+  <label>
+    <input type="checkbox" id="lightSwitch" />
+    <span class="toggle"></span>
+    Toggle Light
+  </label>
+  <p>Status: <span id="status">Loading...</span></p>
+
+  <script>
+    // Firebase config (fill in with your details)
+    const firebaseConfig = {
+      apiKey: "AIzaSyDviS9iLHKvh7hd5FNIlfucIZP7IAsYyhA",
+      authDomain: "jst-control.firebaseapp.com",
+      databaseURL: "https://jst-control-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "jst-control",
+      storageBucket: "jst-control.appspot.com",
+      messagingSenderId: "301905840455",
+      appId: "1:301905840455:web:6ba55894f2c7b8b5f22462"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const lightRef = db.ref("test/light");
+
+    // Update UI when DB changes
+    lightRef.on("value", (snapshot) => {
+      const isOn = snapshot.val();
+      document.getElementById("lightSwitch").checked = isOn;
+      document.getElementById("status").innerText = isOn ? "ON" : "OFF";
+    });
+
+    // Write change to DB
+    document.getElementById("lightSwitch").addEventListener("change", (e) => {
+      lightRef.set(e.target.checked);
+    });
+  </script>
+</body>
+</html>
