@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agricultural Motor Control</title>
 
   <!-- Firebase SDKs -->
@@ -10,8 +10,8 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
@@ -19,24 +19,24 @@
 
     <!-- Login Section -->
     <div id="loginSection">
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button onclick="login()">Sign In</button>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button id="signInBtn">Sign In</button>
       <p id="loginStatus"></p>
     </div>
 
     <!-- Control Section -->
     <div id="controlSection" class="hidden">
       <label class="switch-label">
-        <input type="checkbox" id="lightSwitch" class="hidden"/>
+        <input type="checkbox" id="lightSwitch" class="hidden" />
         <span class="toggle"></span>
       </label>
       <p>Status: <span id="status">--</span></p>
-      <button id="logoutBtn" onclick="logout()">Logout</button>
+      <button id="logoutBtn">Logout</button>
     </div>
   </div>
 
-  <!-- Logic -->
+  <!-- JS -->
   <script src="app.js"></script>
 </body>
 </html>
