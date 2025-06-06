@@ -4,87 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ESP32 Light Control (Secure)</title>
-
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #121212;
-      color: #ffffff;
-      text-align: center;
-      padding: 40px;
-    }
-
-    .container {
-      max-width: 400px;
-      margin: auto;
-      background: #1e1e1e;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 20px #00000088;
-    }
-
-    h2 {
-      color: #4caf50;
-    }
-
-    input, button {
-      margin: 10px;
-      padding: 10px;
-      width: 90%;
-      font-size: 1em;
-    }
-
-    .toggle {
-      width: 60px;
-      height: 30px;
-      background: #444;
-      border-radius: 30px;
-      position: relative;
-      display: inline-block;
-      cursor: pointer;
-      margin: 10px 0;
-    }
-
-    .toggle::before {
-      content: "";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 24px;
-      height: 24px;
-      background: white;
-      border-radius: 50%;
-      transition: transform 0.3s ease;
-    }
-
-    #lightSwitch:checked + .toggle {
-      background: #4caf50;
-    }
-
-    #lightSwitch:checked + .toggle::before {
-      transform: translateX(30px);
-    }
-
-    #logoutBtn {
-      background: #ff5252;
-      color: white;
-      border: none;
-    }
-
-    .hidden {
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <div class="container">
-    <h2>AGRI CONTROL APP</h2>
+    <h1>Smart Pump</h1>
 
     <!-- Sign-in Form -->
     <div id="loginSection">
@@ -96,76 +21,20 @@
 
     <!-- Control Panel -->
     <div id="controlSection" class="hidden">
-      <label>
-        <input type="checkbox" id="lightSwitch" class="hidden"/>
-        <span class="toggle"></span>
-      </label>
-      <p>Status: <span id="status">--</span></p>
-      <button id="logoutBtn" onclick="logout()">Logout</button>
+      <div class="control-background">
+        <label>
+          <input type="checkbox" id="lightSwitch" class="hidden"/>
+          <span class="toggle"></span>
+        </label>
+        <p>Status: <span id="status">--</span></p>
+        <button id="logoutBtn" onclick="logout()">Logout</button>
+      </div>
     </div>
   </div>
 
-  <script>
-    // 🔧 Firebase Config (Your project settings)
-    const firebaseConfig = {
-      apiKey: "AIzaSyDviS9iLHKvh7hd5FNIlfucIZP7lAsYyhA",
-      authDomain: "jst-control.firebaseapp.com",
-      databaseURL: "https://jst-control-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "jst-control",
-      storageBucket: "jst-control.appspot.com",
-      messagingSenderId: "301905840455",
-      appId: "1:301905840455:web:6ba55894f2c7b8b5f22462"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
-    const lightRef = db.ref("test/light");
-
-    const loginSection = document.getElementById("loginSection");
-    const controlSection = document.getElementById("controlSection");
-
-    // 🔐 Sign in logic
-    function login() {
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(() => {
-          loginSection.classList.add("hidden");
-          controlSection.classList.remove("hidden");
-        })
-        .catch((error) => {
-          document.getElementById("loginStatus").innerText = error.message;
-        });
-    }
-
-    // 🔒 Logout logic
-    function logout() {
-      firebase.auth().signOut().then(() => {
-        controlSection.classList.add("hidden");
-        loginSection.classList.remove("hidden");
-      });
-    }
-
-    // ✅ Monitor auth state
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        loginSection.classList.add("hidden");
-        controlSection.classList.remove("hidden");
-        lightRef.on("value", (snapshot) => {
-          const isOn = snapshot.val();
-          document.getElementById("lightSwitch").checked = isOn;
-          document.getElementById("status").innerText = isOn ? "ON" : "OFF";
-        });
-      } else {
-        logout();
-      }
-    });
-
-    // 💡 Toggle light value
-    document.getElementById("lightSwitch").addEventListener("change", (e) => {
-      lightRef.set(e.target.checked);
-    });
-  </script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
