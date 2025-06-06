@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #0f2027;  /* Modern gradient background */
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: #1c1c1c;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.green {
+  color: #4caf50;
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+input {
+  background: #2c2c2c;
+  color: white;
+}
+
+button {
+  background: #4caf50;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #43a047;
+}
+
+#logoutBtn {
+  background: #f44336;
+}
+
+#logoutBtn:hover {
+  background: #e53935;
+}
+
+.toggle {
+  width: 60px;
+  height: 30px;
+  background: #555;
+  border-radius: 30px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.toggle::before {
+  content: "";
+  width: 26px;
+  height: 26px;
+  background: white;
+  position: absolute;
+  border-radius: 50%;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+}
+
+#lightSwitch:checked + .toggle {
+  background: #4caf50;
+}
+
+#lightSwitch:checked + .toggle::before {
+  transform: translateX(30px);
+}
+
+.hidden {
+  display: none;
+}
