@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ESP32 Light Control</title>
+  <title>ESP32 Light Control with Firebase Auth</title>
 
   <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <style>
@@ -18,24 +19,22 @@
       flex-direction: column;
       align-items: center;
       padding-top: 50px;
+      min-height: 100vh;
+      margin: 0;
     }
-
     h2 {
       font-size: 2em;
       margin-bottom: 20px;
     }
-
     label {
       display: flex;
       align-items: center;
       cursor: pointer;
       font-size: 1.2em;
     }
-
     input[type="checkbox"] {
       display: none;
     }
-
     .toggle {
       width: 60px;
       height: 30px;
@@ -45,7 +44,6 @@
       transition: background 0.3s ease;
       margin-right: 10px;
     }
-
     .toggle::before {
       content: "";
       position: absolute;
@@ -57,31 +55,76 @@
       border-radius: 50%;
       transition: transform 0.3s ease;
     }
-
     input:checked + .toggle {
       background: #4caf50;
     }
-
     input:checked + .toggle::before {
       transform: translateX(30px);
     }
-
     #status {
       font-weight: bold;
       font-size: 1.3em;
       margin-top: 20px;
+    }
+    /* Login form styles */
+    #loginForm {
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 250px;
+    }
+    #loginForm input {
+      padding: 8px;
+      font-size: 1em;
+      border-radius: 4px;
+      border: none;
+    }
+    #loginForm button {
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #loginForm button:hover {
+      background-color: #45a049;
+    }
+    #errorMessage {
+      color: #ff6b6b;
+      min-height: 18px;
+      font-weight: bold;
+    }
+    #userEmail {
+      margin-top: 10px;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
 
   <h2>💡 ESP32 Light Control</h2>
-  <label>
+
+  <!-- Login Form -->
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Sign In</button>
+    <div id="errorMessage"></div>
+  </form>
+
+  <div id="userEmail"></div>
+
+  <!-- Light toggle - hidden initially -->
+  <label id="lightControlLabel" style="display:none;">
     <input type="checkbox" id="lightSwitch" />
     <span class="toggle"></span>
     Toggle Light
   </label>
-  <p>Status: <span id="status">Loading...</span></p>
+
+  <p>Status: <span id="status">Not signed in</span></p>
 
   <script>
     // Firebase config (fill in with your details)
@@ -97,19 +140,68 @@
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
     const db = firebase.database();
-    const lightRef = db.ref("test/light");
 
-    // Update UI when DB changes
-    lightRef.on("value", (snapshot) => {
-      const isOn = snapshot.val();
-      document.getElementById("lightSwitch").checked = isOn;
-      document.getElementById("status").innerText = isOn ? "ON" : "OFF";
+    const loginForm = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorMessage = document.getElementById('errorMessage');
+    const userEmailDisplay = document.getElementById('userEmail');
+    const lightControlLabel = document.getElementById('lightControlLabel');
+    const lightSwitch = document.getElementById('lightSwitch');
+    const statusText = document.getElementById('status');
+
+    let lightRef;
+
+    // Listen for auth state changes
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        // User signed in
+        userEmailDisplay.textContent = `Signed in as: ${user.email}`;
+        loginForm.style.display = 'none';
+        lightControlLabel.style.display = 'flex';
+        statusText.textContent = 'Loading...';
+
+        // Setup database ref and listeners
+        lightRef = db.ref("test/light");
+        lightRef.on("value", snapshot => {
+          const isOn = snapshot.val();
+          lightSwitch.checked = !!isOn;
+          statusText.textContent = isOn ? "ON" : "OFF";
+        });
+
+        // Listen to toggle changes
+        lightSwitch.addEventListener("change", e => {
+          lightRef.set(e.target.checked);
+        });
+      } else {
+        // User signed out
+        userEmailDisplay.textContent = "";
+        loginForm.style.display = 'flex';
+        lightControlLabel.style.display = 'none';
+        statusText.textContent = "Not signed in";
+
+        // Remove listener if any
+        if(lightRef) {
+          lightRef.off();
+          lightRef = null;
+        }
+        lightSwitch.checked = false;
+      }
     });
 
-    // Write change to DB
-    document.getElementById("lightSwitch").addEventListener("change", (e) => {
-      lightRef.set(e.target.checked);
+    // Handle login form submit
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+      errorMessage.textContent = "";
+
+      auth.signInWithEmailAndPassword(email, password)
+        .catch(err => {
+          errorMessage.textContent = err.message;
+        });
     });
   </script>
 </body>
