@@ -3,38 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ESP32 Light Control (Secure)</title>
+  <title>ESP32 Smart Pump Login</title>
   <link rel="stylesheet" href="style.css">
-</head>
-<body>
 
-  <div class="container">
-    <h1>Smart Pump</h1>
-
-    <!-- Sign-in Form -->
-    <div id="loginSection">
-      <input type="email" id="email" placeholder="Email" required><br>
-      <input type="password" id="password" placeholder="Password" required><br>
-      <button onclick="login()">Sign In</button>
-      <p id="loginStatus"></p>
-    </div>
-
-    <!-- Control Panel -->
-    <div id="controlSection" class="hidden">
-      <div class="control-background">
-        <label>
-          <input type="checkbox" id="lightSwitch" class="hidden"/>
-          <span class="toggle"></span>
-        </label>
-        <p>Status: <span id="status">--</span></p>
-        <button id="logoutBtn" onclick="logout()">Logout</button>
-      </div>
-    </div>
-  </div>
-
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body>
+
+  <!-- 🔐 Login Panel -->
+  <div class="login-wrapper" id="loginSection">
+    <div class="login-box">
+      <div class="logo">SMART PUMP</div>
+      <h2>Welcome Back</h2>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button onclick="login()">Sign In</button>
+      <p id="loginStatus" class="error-msg"></p>
+    </div>
+  </div>
+
+  <!-- ✅ Control Panel -->
+  <div id="controlSection" class="hidden">
+    <div class="control-card">
+      <h2>Device Control Panel</h2>
+      
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="lightSwitch">
+          <span class="slider round"></span>
+        </label>
+        <p>Status: <span id="status">--</span></p>
+      </div>
+
+      <button id="logoutBtn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <!-- 🚀 Logic -->
   <script src="app.js"></script>
 </body>
 </html>

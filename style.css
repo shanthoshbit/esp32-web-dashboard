@@ -1,95 +1,156 @@
+/* General Styling */
 body {
-  font-family: 'Arial', sans-serif;
-  background: url('https://example.com/signin-background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #ffffff;
-  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #7f00ff, #0000ff);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Login Wrapper */
+.login-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-box {
+  background: rgba(0, 0, 0, 0.7);
   padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
 }
 
-.container {
-  max-width: 800px;
-  margin: auto;
-  background: rgba(30, 30, 30, 0.8);
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 0 20px #00000088;
+.logo {
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ff00c8;
 }
 
-h1 {
-  color: #ebeeeb;
+h2 {
   margin-bottom: 20px;
 }
 
-input, button {
-  margin: 10px;
-  padding: 10px;
-  width: 90%;
-  font-size: 1em;
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
   border: none;
-  border-radius: 5px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1em;
 }
 
-input {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 button {
-  background: #4caf50;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(to right, #ff00c8, #7928ca);
+  border: none;
+  border-radius: 30px;
   color: white;
-  transition: background 0.3s;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background: #45a049;
+  background: linear-gradient(to right, #ff33cc, #8a2be2);
 }
 
-.toggle {
-  width: 60px;
-  height: 30px;
-  background: #444;
-  border-radius: 30px;
+.error-msg {
+  color: #ff4d4d;
+  margin-top: 10px;
+  font-size: 0.9em;
+}
+
+/* Control Section */
+.control-card {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 40px;
+  color: white;
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+}
+
+/* Toggle Switch */
+.toggle-container {
+  margin: 30px 0;
+}
+
+.switch {
   position: relative;
   display: inline-block;
-  cursor: pointer;
-  margin: 10px 0;
+  width: 60px;
+  height: 34px;
 }
 
-.toggle::before {
-  content: "";
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
   position: absolute;
-  top: 3px;
-  left: 3px;
-  width: 24px;
-  height: 24px;
-  background: white;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px; width: 26px;
+  left: 4px; bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
   border-radius: 50%;
-  transition: transform 0.3s ease;
 }
 
-#lightSwitch:checked + .toggle {
-  background: #4caf50;
+input:checked + .slider {
+  background-color: #4caf50;
 }
 
-#lightSwitch:checked + .toggle::before {
-  transform: translateX(30px);
+input:checked + .slider:before {
+  transform: translateX(26px);
 }
 
 #logoutBtn {
   background: #ff5252;
-  color: white;
   border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 20px;
 }
 
+#logoutBtn:hover {
+  background: #e64949;
+}
+
+/* Hide by default */
 .hidden {
   display: none;
-}
-
-/* Control Panel Background */
-.control-background {
-  background: url('https://example.com/control-background.jpg') no-repeat center center;
-  background-size: cover;
-  padding: 20px;
-  border-radius: 15px;
 }
