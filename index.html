@@ -16,7 +16,7 @@
   <!-- 🔐 Login Panel -->
   <div class="login-wrapper" id="loginSection">
     <div class="login-box">
-      <div class="logo">SMART PUMP</div>
+      <div class="logo"></div>
       <h2>Welcome Back</h2>
       <input type="email" id="email" placeholder="Email" required>
       <input type="password" id="password" placeholder="Password" required>
@@ -28,14 +28,42 @@
   <!-- ✅ Control Panel -->
   <div id="controlSection" class="hidden">
     <div class="control-card">
-      <h2>Device Control Panel</h2>
-      
+      <h2 id="Panel">Device Control Panel</h2>
+
       <div class="toggle-container">
+        <label> MOTOR ---- </label>
         <label class="switch">
-          <input type="checkbox" id="lightSwitch">
+          <input type="checkbox" id="relay1Switch">
           <span class="slider round"></span>
         </label>
-        <p>Status: <span id="status">--</span></p>
+        <p>Status: <span id="status1">--</span></p>
+      </div>
+
+      <div class="toggle-container">
+        <label>LIGHT-1 ---- </label>
+        <label class="switch">
+          <input type="checkbox" id="relay2Switch">
+          <span class="slider round"></span>
+        </label>
+        <p>Status: <span id="status2">--</span></p>
+      </div>
+
+      <div class="toggle-container">
+        <label>VALVE-1 ---- </label>
+        <label class="switch">
+          <input type="checkbox" id="relay3Switch">
+          <span class="slider round"></span>
+        </label>
+        <p>Status: <span id="status3">--</span></p>
+      </div>
+
+      <div class="toggle-container">
+        <label>VALVE-2 ---- </label>
+        <label class="switch">
+          <input type="checkbox" id="relay4Switch">
+          <span class="slider round"></span>
+        </label>
+        <p>Status: <span id="status4">--</span></p>
       </div>
 
       <button id="logoutBtn" onclick="logout()">Logout</button>

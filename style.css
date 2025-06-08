@@ -92,6 +92,7 @@ button:hover {
 /* Toggle Switch */
 .toggle-container {
   margin: 30px 0;
+  
 }
 
 .switch {
@@ -124,6 +125,7 @@ button:hover {
   background-color: white;
   transition: 0.4s;
   border-radius: 50%;
+ 
 }
 
 input:checked + .slider {
@@ -153,4 +155,7 @@ input:checked + .slider:before {
 /* Hide by default */
 .hidden {
   display: none;
+}
+.Panel{
+    font-family: 'Times New Roman', Times, serif;
 }
