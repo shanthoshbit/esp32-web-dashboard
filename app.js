@@ -86,3 +86,24 @@ auth.onAuthStateChanged((user) => {
     controlSection.classList.add("hidden");
   }
 });
+// ⏳ Hide splash after loading
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("splashScreen").style.display = "none";
+  }, 3000); // matches animation time
+});
+const AUTO_LOGOUT_MINUTES = 6; // Auto logout after 5 minutes
+let logoutTimer;
+
+function resetLogoutTimer() {
+  clearTimeout(logoutTimer);
+  logoutTimer = setTimeout(() => {
+    auth.signOut().then(() => {
+      alert("Logged out due to inactivity.");
+      location.reload();
+    });
+  }, AUTO_LOGOUT_MINUTES * 60 * 1000); // Convert to milliseconds
+}
+window.addEventListener("mousemove", resetLogoutTimer);
+window.addEventListener("keydown", resetLogoutTimer);
+resetLogoutTimer(); // Start initially
