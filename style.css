@@ -1,4 +1,4 @@
-/* General Styling */
+/* 🌐 Global Styling */
 body {
   margin: 0;
   padding: 0;
@@ -11,7 +11,7 @@ body {
   color: white;
 }
 
-/* Login Wrapper */
+/* 🔐 Login Section */
 .login-wrapper {
   width: 100%;
   display: flex;
@@ -23,7 +23,7 @@ body {
   background: rgba(0, 0, 0, 0.7);
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
   text-align: center;
   max-width: 400px;
   width: 90%;
@@ -77,7 +77,7 @@ button:hover {
   font-size: 0.9em;
 }
 
-/* Control Section */
+/* ✅ Control Panel */
 .control-card {
   background: rgba(0, 0, 0, 0.6);
   border-radius: 20px;
@@ -86,13 +86,12 @@ button:hover {
   max-width: 400px;
   margin: 50px auto;
   text-align: center;
-  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Toggle Switch */
+/* 🖲 Toggle Switch */
 .toggle-container {
   margin: 30px 0;
-  
 }
 
 .switch {
@@ -111,7 +110,10 @@ button:hover {
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: #ccc;
   transition: 0.4s;
   border-radius: 34px;
@@ -120,12 +122,13 @@ button:hover {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px; width: 26px;
-  left: 4px; bottom: 4px;
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
   background-color: white;
   transition: 0.4s;
   border-radius: 50%;
- 
 }
 
 input:checked + .slider {
@@ -136,6 +139,7 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+/* 🚪 Logout Button */
 #logoutBtn {
   background: #ff5252;
   border: none;
@@ -152,18 +156,18 @@ input:checked + .slider:before {
   background: #e64949;
 }
 
-/* Hide by default */
+/* 🕵️‍♂️ Hidden Class */
 .hidden {
   display: none;
 }
-.Panel{
-    font-family: 'Times New Roman', Times, serif;
-}
-/* 🌟 Splash Screen Styling */
+
+/* 📛 Splash Screen */
 .splash-screen {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: white;
   display: flex;
   flex-direction: column;
@@ -173,7 +177,7 @@ input:checked + .slider:before {
 }
 
 .splash-logo {
-  width: 120px; /* 🔼 Make logo bigger */
+  width: 120px;
   margin-bottom: 20px;
 }
 
@@ -194,13 +198,56 @@ input:checked + .slider:before {
 }
 
 @keyframes loadProgress {
-  from { width: 0%; }
-  to { width: 100%; }
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
+
 .splash-title {
   font-size: 1.5em;
   color: #0072ff;
   margin: 10px 0 20px 0;
   font-weight: bold;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-group button {
+  padding: 12px;
+  font-size: 1em;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(to right, #ff00c8, #7928ca);
+  color: white;
+  transition: 0.3s ease;
+}
+
+.btn-group button:hover {
+  background: linear-gradient(to right, #ff33cc, #8a2be2);
+}
+#timerStatus {
+  font-size: 0.9em;
+  color: #00e5ff;
+}
+.offline-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff4d4d;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: bold;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  z-index: 1000;
 }

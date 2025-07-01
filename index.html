@@ -1,13 +1,12 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AgriTech</title>
-   <link rel="icon" href="agriculture-png-17.png" type="image/x-icon">
+  <link rel="icon" href="agriculture-png-17.png" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -15,72 +14,75 @@
 <body>
 <div id="splashScreen" class="splash-screen">
   <img src="agriculture-png-17.png" class="splash-logo" alt="Logo" />
-  <h1 class="splash-title">STS Control</h1> <!-- 🔥 Your Name or App Title -->
+  <h1 class="splash-title">STS Control</h1>
   <div class="loader-bar">
     <div class="loader-progress"></div>
   </div>
 </div>
 
- 
-
-  <!-- 🔐 Login Panel -->
-  <div class="login-wrapper" id="loginSection">
-    <div class="login-box">
-      <div class="logo"></div>
-      <h2>Welcome Back</h2>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button onclick="login()">Sign In</button>
-      <p id="loginStatus" class="error-msg"></p>
-    </div>
+<div class="login-wrapper" id="loginSection">
+  <div class="login-box">
+    <div class="logo"></div>
+    <h2>Welcome Back</h2>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button onclick="login()">Sign In</button>
+    <p id="loginStatus" class="error-msg"></p>
   </div>
+</div>
 
-  <!-- ✅ Control Panel -->
-  <div id="controlSection" class="hidden">
-    <div class="control-card">
-      <h2 id="Panel">Device Control Panel</h2>
+<div id="controlSection" class="hidden">
+  <div class="control-card">
+    <h2 id="Panel">Device Control Panel</h2>
 
-      <div class="toggle-container">
-        <label> MOTOR ---- </label>
-        <label class="switch">
-          <input type="checkbox" id="relay1Switch">
-          <span class="slider round"></span>
-        </label>
-        <p>Status: <span id="status1">--</span></p>
-      </div>
+    <div class="toggle-container">
+      <label> MOTOR </label>
+      <label class="switch">
+        <input type="checkbox" id="relay1Switch">
+        <span class="slider round"></span>
+      </label>
+       <p>Status: <span id="status1">--</span></p>
+      <button class="timer-btn" onclick="location.href='timer.html'">Timer</button>
+     
+      <p id="timerStatus">Timer: --</p>
+      
 
-      <div class="toggle-container">
-        <label>LIGHT-1 ---- </label>
-        <label class="switch">
-          <input type="checkbox" id="relay2Switch">
-          <span class="slider round"></span>
-        </label>
-        <p>Status: <span id="status2">--</span></p>
-      </div>
-
-      <div class="toggle-container">
-        <label>VALVE-1 ---- </label>
-        <label class="switch">
-          <input type="checkbox" id="relay3Switch">
-          <span class="slider round"></span>
-        </label>
-        <p>Status: <span id="status3">--</span></p>
-      </div>
-
-      <div class="toggle-container">
-        <label>VALVE-2 ---- </label>
-        <label class="switch">
-          <input type="checkbox" id="relay4Switch">
-          <span class="slider round"></span>
-        </label>
-        <p>Status: <span id="status4">--</span></p>
-      </div>
-
-      <button id="logoutBtn" onclick="logout()">Logout</button>
     </div>
-  </div>
 
-  <!-- 🚀 Logic -->
-  <script src="app.js"></script>
+    <div class="toggle-container">
+      <label>LIGHT-1 </label>
+      <label class="switch">
+        <input type="checkbox" id="relay2Switch">
+        <span class="slider round"></span>
+      </label>
+      <p>Status: <span id="status2">--</span></p>
+    </div>
+
+    <div class="toggle-container">
+      <label>VALVE-1 </label>
+      <label class="switch">
+        <input type="checkbox" id="relay3Switch">
+        <span class="slider round"></span>
+      </label>
+      <p>Status: <span id="status3">--</span></p>
+    </div>
+
+    <div class="toggle-container">
+      <label>VALVE-2 </label>
+      <label class="switch">
+        <input type="checkbox" id="relay4Switch">
+        <span class="slider round"></span>
+      </label>
+      <p>Status: <span id="status4">--</span></p>
+    </div>
+
+    <button id="logoutBtn" onclick="logout()">Logout</button>
+  </div>
+</div>
+<div id="espOfflinePopup" class="offline-popup hidden">
+  ⚠️ Device is offline or not connected!
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriTech</title>
+   <link rel="icon" href="agriculture-png-17.png" type="image/x-icon">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="control-card">
+    <h2>Timer Setup - MOTOR</h2>
+
+    <div class="input-group">
+      <label for="hours">Hours:</label>
+      <input type="number" id="hours" min="0" value="0" />
+    </div>
+
+    <div class="input-group">
+      <label for="minutes">Minutes:</label>
+      <input type="number" id="minutes" min="0" max="59" value="1" />
+    </div>
+
+    <div class="btn-group">
+      <button id="startBtn">Start Timer</button>
+      <button id="cancelBtn">Back</button>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <!-- ✅ Your JS file (must match filename exactly) -->
+  <script src="timer.js"></script>
+</body>
+</html>
